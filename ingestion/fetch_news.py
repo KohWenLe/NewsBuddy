@@ -22,7 +22,7 @@ def fetch_news():
         "q": QUERY,
         "language": LANGUAGE,
         "sortBy": SORTBY,
-        "from": (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
+        "from": (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d"),
         "apiKey": API_KEY,
         "pageSize": PAGE_SIZE
     }
@@ -43,12 +43,11 @@ def fetch_news():
         print(f"JSON parsing error: {e}")
         return []
 
-    return response.json().get("articles", [])
-
 if __name__ == "__main__":
     articles = fetch_news()
     print(len(articles))
+
     if articles:
-        print(articles[0]["title"])
+        print(articles[0])
     else:
         print("No articles found.")

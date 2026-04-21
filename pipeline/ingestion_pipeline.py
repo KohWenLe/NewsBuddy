@@ -14,16 +14,17 @@ def run_pipeline():
     all_metadata = []
 
     for article in articles:
-        clean = clean_article(article)
+        cleaned = clean_article(article)
 
-        chunks = chunk_text(clean["content"])
+        chunks = chunk_text(cleaned["content"])
 
         for chunk in chunks:
             all_chunks.append(chunk)
             all_metadata.append({
-                "title": clean["title"],
-                "source": clean["source"],
-                "date": clean["publishedAt"]
+                "title": cleaned["title"],
+                "source": cleaned["source"],
+                "date": cleaned["publishedAt"],
+                "text": chunk  
             })
 
     embeddings = embed_texts(all_chunks)
@@ -31,3 +32,7 @@ def run_pipeline():
     upsert_chunks(index, all_chunks, embeddings, all_metadata)
 
     print(f"Inserted {len(all_chunks)} chunks into Pinecone")
+    print("\n Sample metadata and chunk:")
+    print(all_metadata[0])
+    print("\n")
+    print(all_chunks[0])

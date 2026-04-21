@@ -1,3 +1,5 @@
+
+# fix-size chunking based on word count
 def chunk_text(text, max_words=120):
     words = text.split()
     chunks = []
